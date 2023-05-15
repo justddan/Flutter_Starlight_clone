@@ -92,11 +92,4 @@ List<MyPageMenu> myPageMenu = [
     prefixIcon: "assets/icon/icon_terms.png",
     fun: () {},
   ),
-  MyPageMenu(
-    menuId: 8,
-    title: "Logout",
-    backgroundColor: const Color.fromRGBO(255, 255, 255, 0.1),
-    prefixIcon: "assets/icon/icon_logout.png",
-    fun: () {},
-  ),
 ];

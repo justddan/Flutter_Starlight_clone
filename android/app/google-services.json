@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "100693302795-c3k2iao5igoj59rbbe8675ntupgokanv.apps.googleusercontent.com",
+          "client_id": "100693302795-6p91t1u47gv1oob88f1mrqbij3vfgcc2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.starlight_clone",
+            "certificate_hash": "20f42656b524d8ef26cda5890c42fa15cca288a1"
+          }
+        },
+        {
+          "client_id": "100693302795-8k6omvagf102b09en9dr4avrm067g4b7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,8 +35,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "100693302795-c3k2iao5igoj59rbbe8675ntupgokanv.apps.googleusercontent.com",
+              "client_id": "100693302795-8k6omvagf102b09en9dr4avrm067g4b7.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "100693302795-mrhcbur7hbg7bgjm4lmhnf6laidpauot.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.starlightClone"
+              }
             }
           ]
         }

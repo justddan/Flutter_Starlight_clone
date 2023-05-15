@@ -5,7 +5,9 @@ import 'package:starlight_clone/components/common_button.dart';
 import 'package:starlight_clone/components/common_button_with_right_check.dart';
 import 'package:starlight_clone/components/common_short_radius_button.dart';
 import 'package:starlight_clone/models/mypage/menu.dart';
+import 'package:starlight_clone/screens/login/login_screen.dart';
 import 'package:starlight_clone/screens/mypage/detail/edit_nickname_screen.dart';
+import 'package:starlight_clone/util/auth.dart';
 
 class MyPageMenu {
   final String title, prefixIcon;
@@ -113,6 +115,22 @@ class _MyPageScreenState extends State<MyPageScreen> {
                   height: 10,
                 ),
                 itemCount: myPageMenu.length,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              CommonButtonWithRightCheck(
+                title: "Logout",
+                backgroundColor: const Color.fromRGBO(255, 255, 255, 0.1),
+                borderColor: Colors.transparent,
+                fun: () async {
+                  await Auth.signOut(context: context);
+                  Get.to(() => const LoginScreen());
+                },
+                prefixIcon: "assets/icon/icon_logout.png",
+                prefixIconColor: Colors.white,
+                prefixWidth: screenWidth / 18,
+                prefixHeight: screenWidth / 18,
               ),
               const SizedBox(
                 height: 10,

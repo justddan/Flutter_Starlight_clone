@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:starlight_clone/components/common_button.dart';
+import 'package:starlight_clone/screens/login/component/google_sign_in_button.dart';
 import 'package:starlight_clone/screens/login/terms_screen.dart';
-import 'package:starlight_clone/screens/main_screen.dart';
+import 'package:starlight_clone/util/auth.dart';
 
 class LoginScreen extends StatelessWidget {
   static String routeName = "/login";
@@ -85,15 +86,18 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  CommonButton(
-                    title: "Google",
-                    backgroundColor: Theme.of(context).colorScheme.onBackground,
-                    borderColor: Theme.of(context).colorScheme.onSurface,
-                    prefixIcon: "assets/icon/icon_google.png",
-                    prefixWidth: 30,
-                    prefixHeight: 30,
-                    fun: () => Get.off(() => const MainScreen()),
-                  )
+                  FutureBuilder(
+                    future: Auth.initializeFirebase(context: context),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return const Text('Error initializing Firebase');
+                      } else if (snapshot.connectionState ==
+                          ConnectionState.done) {
+                        return const GoogleSignInButton();
+                      }
+                      return const CircularProgressIndicator();
+                    },
+                  ),
                 ],
               ),
             ),

@@ -66,7 +66,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '100693302795',
     projectId: 'starlight-clone',
     storageBucket: 'starlight-clone.appspot.com',
-    iosClientId: '100693302795-mrhcbur7hbg7bgjm4lmhnf6laidpauot.apps.googleusercontent.com',
+    iosClientId:
+        '100693302795-mrhcbur7hbg7bgjm4lmhnf6laidpauot.apps.googleusercontent.com',
     iosBundleId: 'com.example.starlightClone',
   );
 
@@ -76,7 +77,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '100693302795',
     projectId: 'starlight-clone',
     storageBucket: 'starlight-clone.appspot.com',
-    iosClientId: '100693302795-mrhcbur7hbg7bgjm4lmhnf6laidpauot.apps.googleusercontent.com',
+    iosClientId:
+        '100693302795-mrhcbur7hbg7bgjm4lmhnf6laidpauot.apps.googleusercontent.com',
     iosBundleId: 'com.example.starlightClone',
   );
 }
