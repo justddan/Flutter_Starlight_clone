@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "100693302795",
+    "project_id": "starlight-clone",
+    "storage_bucket": "starlight-clone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100693302795:android:2d558be1c063f6283af10e",
+        "android_client_info": {
+          "package_name": "com.example.starlight_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "100693302795-c3k2iao5igoj59rbbe8675ntupgokanv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUUpKjZpIuSKzG2LuWs9sZ31cfMRNzxXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "100693302795-c3k2iao5igoj59rbbe8675ntupgokanv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
