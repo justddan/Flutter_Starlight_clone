@@ -101,6 +101,7 @@ class CommonButton extends StatelessWidget {
                         image: AssetImage(suffixIcon ?? ""),
                         width: suffixWidth ?? 0,
                         height: suffixHeight ?? 0,
+                        fit: BoxFit.contain,
                       ),
                     ],
                   ),

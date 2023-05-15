@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:starlight_clone/components/common_back_with_close_header_bottom_sheet.dart';
 import 'package:starlight_clone/components/common_button.dart';
 import 'package:starlight_clone/components/common_button_with_right_check.dart';
 import 'package:starlight_clone/components/common_short_radius_button.dart';
+import 'package:starlight_clone/components/common_text_with_close_header_bottom_sheet.dart';
 import 'package:starlight_clone/models/mypage/menu.dart';
 import 'package:starlight_clone/screens/login/login_screen.dart';
 import 'package:starlight_clone/screens/mypage/detail/edit_nickname_screen.dart';
@@ -146,55 +148,28 @@ class _MyPageScreenState extends State<MyPageScreen> {
     return showModalBottomSheet(
       context: context,
       builder: (context) {
-        return Container(
-          color: Theme.of(context).colorScheme.onBackground,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Edit profile",
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: const Image(
-                        image: AssetImage("assets/icon/icon_cancel.png"),
-                        width: 14,
-                        height: 14,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                CommonButtonWithRightCheck(
-                  title: "Change profile image",
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  borderColor: Theme.of(context).colorScheme.surface,
-                  fun: () => _showImageBottomSheet(),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                CommonButtonWithRightCheck(
-                  title: "Change nickname",
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  borderColor: Theme.of(context).colorScheme.surface,
-                  fun: () {
-                    Get.to(() => const EditNicknameScreen());
-                  },
-                ),
-              ],
-            ),
+        return CommonTextWithCloseHeaderBottomSheet(
+          title: "Edit profile",
+          childWidget: Column(
+            children: [
+              CommonButtonWithRightCheck(
+                title: "Change profile image",
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                borderColor: Theme.of(context).colorScheme.surface,
+                fun: () => _showImageBottomSheet(),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              CommonButtonWithRightCheck(
+                title: "Change nickname",
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                borderColor: Theme.of(context).colorScheme.surface,
+                fun: () {
+                  Get.to(() => const EditNicknameScreen());
+                },
+              ),
+            ],
           ),
         );
       },
@@ -205,66 +180,38 @@ class _MyPageScreenState extends State<MyPageScreen> {
     return showModalBottomSheet(
       context: context,
       builder: (context) {
-        return Container(
-          color: Theme.of(context).colorScheme.onBackground,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: const Image(
-                        image: AssetImage("assets/icon/icon_left_check.png"),
-                        width: 14,
-                        height: 14,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                        Get.back();
-                      },
-                      child: const Image(
-                        image: AssetImage("assets/icon/icon_cancel.png"),
-                        width: 14,
-                        height: 14,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                CommonButton(
-                  title: "Camera",
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  borderColor: Theme.of(context).colorScheme.surface,
-                  prefixIcon: "assets/icon/icon_camera.png",
-                  prefixWidth: 20,
-                  prefixHeight: 20,
-                  fun: () => _getCameraImage(),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                CommonButton(
-                  title: "Library",
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  borderColor: Theme.of(context).colorScheme.surface,
-                  prefixIcon: "assets/icon/icon_library.png",
-                  prefixWidth: 20,
-                  prefixHeight: 20,
-                  fun: () => _getPhotoLibraryImage(),
-                ),
-              ],
-            ),
+        return CommonBackWithCloseHeaderBottomSheet(
+          backFun: () {
+            Get.back();
+          },
+          closeFun: () {
+            Get.back();
+            Get.back();
+          },
+          childWidget: Column(
+            children: [
+              CommonButton(
+                title: "Camera",
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                borderColor: Theme.of(context).colorScheme.surface,
+                prefixIcon: "assets/icon/icon_camera.png",
+                prefixWidth: 20,
+                prefixHeight: 20,
+                fun: () => _getCameraImage(),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              CommonButton(
+                title: "Library",
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                borderColor: Theme.of(context).colorScheme.surface,
+                prefixIcon: "assets/icon/icon_library.png",
+                prefixWidth: 20,
+                prefixHeight: 20,
+                fun: () => _getPhotoLibraryImage(),
+              ),
+            ],
           ),
         );
       },

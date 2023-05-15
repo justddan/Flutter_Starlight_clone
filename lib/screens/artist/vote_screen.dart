@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:starlight_clone/components/common_radius_button.dart';
 import 'package:starlight_clone/components/common_short_radius_button.dart';
 import 'package:starlight_clone/components/common_sub_text_container.dart';
+import 'package:starlight_clone/screens/artist/components/vote_dialog.dart';
 import 'package:starlight_clone/util/constant.dart';
 
 class VoteScreen extends StatelessWidget {
@@ -224,45 +225,7 @@ class VoteScreen extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return AlertDialog(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.onBackground,
-                          title: Text(
-                            "Voted",
-                            style: Theme.of(context).textTheme.headlineLarge,
-                          ),
-                          content: Text(
-                            "You have successfully completed the vote. More information can be found on My Page > Stardust.",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  color: const Color(0xFFA4A29E),
-                                ),
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Get.back();
-                              },
-                              child: Text(
-                                "Close",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary),
-                              ),
-                            )
-                          ],
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(15.0),
-                            ),
-                          ),
-                        );
+                        return const VoteDialog();
                       },
                     );
                   } else {

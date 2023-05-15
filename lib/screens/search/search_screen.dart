@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:starlight_clone/components/common_poster.dart';
 import 'package:starlight_clone/components/common_short_radius_button.dart';
 import 'package:starlight_clone/models/home/group.dart';
 import 'package:starlight_clone/screens/artist/artist_screen.dart';
+import 'package:starlight_clone/screens/search/components/search_poster.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -209,24 +209,9 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                         );
                       },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: CommonPoster(
-                              posterUrl: groups[index].imgUrl,
-                              length: screenWidth * 5 / 18,
-                              radius: 15,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            groups[index].name,
-                            style: Theme.of(context).textTheme.headlineSmall,
-                          )
-                        ],
+                      child: SearchPoster(
+                        posterUrl: groups[index].imgUrl,
+                        name: groups[index].name,
                       ),
                     );
                   }),

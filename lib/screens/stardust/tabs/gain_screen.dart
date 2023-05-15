@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:starlight_clone/components/common_back_with_close_header_bottom_sheet.dart';
 import 'package:starlight_clone/components/common_button.dart';
 import 'package:starlight_clone/components/common_radius_button.dart';
 import 'package:starlight_clone/components/common_short_radius_button.dart';
+import 'package:starlight_clone/components/common_text_with_close_header_bottom_sheet.dart';
 import 'package:starlight_clone/models/stardust/gain_stardust.dart';
 import 'package:starlight_clone/screens/stardust/tabs/components/gain_list.dart';
 import 'package:starlight_clone/util/constant.dart';
@@ -150,101 +152,66 @@ class _GainScreenState extends State<GainScreen> {
     return showModalBottomSheet(
       context: context,
       builder: (context) {
-        return Container(
-          color: Theme.of(context).colorScheme.onBackground,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        return CommonTextWithCloseHeaderBottomSheet(
+          title: "Select the date",
+          childWidget: Row(
+            children: [
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Select the date",
-                      style: Theme.of(context).textTheme.headlineMedium,
+                      "From",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: Colors.white.withOpacity(0.6)),
                     ),
-                    GestureDetector(
-                      onTap: () {
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    CommonButton(
+                      title: fromDate,
+                      backgroundColor: Theme.of(context).colorScheme.surface,
+                      borderColor: Colors.transparent,
+                      fun: () {
                         Get.back();
+                        _showDatePickBottomSheet(true);
                       },
-                      child: const Image(
-                        image: AssetImage("assets/icon/icon_cancel.png"),
-                        width: 14,
-                        height: 14,
-                      ),
                     )
                   ],
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Row(
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "From",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    color: Colors.white.withOpacity(0.6)),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          CommonButton(
-                            title: fromDate,
-                            backgroundColor:
-                                Theme.of(context).colorScheme.surface,
-                            borderColor: Colors.transparent,
-                            fun: () {
-                              Get.back();
-                              _showDatePickBottomSheet(true);
-                            },
-                          )
-                        ],
-                      ),
+                    Text(
+                      "To",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: Colors.white.withOpacity(0.6)),
                     ),
                     const SizedBox(
-                      width: 10,
+                      height: 5,
                     ),
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "To",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    color: Colors.white.withOpacity(0.6)),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          CommonButton(
-                            title: toDate,
-                            backgroundColor:
-                                Theme.of(context).colorScheme.surface,
-                            borderColor: Colors.transparent,
-                            fun: () {
-                              Get.back();
-                              _showDatePickBottomSheet(false);
-                            },
-                          )
-                        ],
-                      ),
-                    ),
+                    CommonButton(
+                      title: toDate,
+                      backgroundColor: Theme.of(context).colorScheme.surface,
+                      borderColor: Colors.transparent,
+                      fun: () {
+                        Get.back();
+                        _showDatePickBottomSheet(false);
+                      },
+                    )
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+            ],
           ),
         );
       },
@@ -258,75 +225,47 @@ class _GainScreenState extends State<GainScreen> {
         final screenWidth = MediaQuery.of(context).size.width;
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter bottomState) {
-            return Container(
-              color: Theme.of(context).colorScheme.onBackground,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Get.back();
-                            _showSelectDateBottomSheet();
-                          },
-                          child: const Image(
-                            image:
-                                AssetImage("assets/icon/icon_left_check.png"),
-                            width: 14,
-                            height: 14,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: const Image(
-                            image: AssetImage("assets/icon/icon_cancel.png"),
-                            width: 14,
-                            height: 14,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: screenWidth * 41 / 72,
-                      child: CupertinoDatePicker(
-                        initialDateTime: isFrom ? from : to,
-                        maximumDate: DateTime.now(),
-                        minimumYear: 2023,
-                        maximumYear: DateTime.now().year,
-                        mode: CupertinoDatePickerMode.date,
-                        onDateTimeChanged: (value) async {
-                          setState(() {
-                            isFrom ? from = value : to = value;
-                          });
-                        },
-                      ),
-                    ),
-                    CommonRadiusButton(
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                      borderColor: Colors.transparent,
-                      buttonText: "Confirm",
-                      buttonTextColor: Colors.black,
-                      fun: () {
-                        bottomState(() {
-                          setState(() {
-                            isFrom
-                                ? fromDate = dateFormat.format(from)
-                                : toDate = dateFormat.format(to);
-                          });
+            return CommonBackWithCloseHeaderBottomSheet(
+              backFun: () {
+                Get.back();
+                _showSelectDateBottomSheet();
+              },
+              closeFun: () => Get.back(),
+              childWidget: Column(
+                children: [
+                  SizedBox(
+                    height: screenWidth * 41 / 72,
+                    child: CupertinoDatePicker(
+                      initialDateTime: isFrom ? from : to,
+                      maximumDate: DateTime.now(),
+                      minimumYear: 2023,
+                      maximumYear: DateTime.now().year,
+                      mode: CupertinoDatePickerMode.date,
+                      onDateTimeChanged: (value) async {
+                        setState(() {
+                          isFrom ? from = value : to = value;
                         });
-                        Get.back();
-                        _showSelectDateBottomSheet();
                       },
                     ),
-                  ],
-                ),
+                  ),
+                  CommonRadiusButton(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    borderColor: Colors.transparent,
+                    buttonText: "Confirm",
+                    buttonTextColor: Colors.black,
+                    fun: () {
+                      bottomState(() {
+                        setState(() {
+                          isFrom
+                              ? fromDate = dateFormat.format(from)
+                              : toDate = dateFormat.format(to);
+                        });
+                      });
+                      Get.back();
+                      _showSelectDateBottomSheet();
+                    },
+                  ),
+                ],
               ),
             );
           },

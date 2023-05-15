@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:starlight_clone/components/common_button.dart';
 import 'package:starlight_clone/components/common_radius_button.dart';
+import 'package:starlight_clone/components/common_text_with_close_header_bottom_sheet.dart';
 import 'package:starlight_clone/screens/login/login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -264,59 +265,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return showModalBottomSheet(
       context: context,
       builder: (context) {
-        return Container(
-          color: Theme.of(context).colorScheme.onBackground,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Select profile from",
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: const Image(
-                        image: AssetImage("assets/icon/icon_cancel.png"),
-                        width: 14,
-                        height: 14,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                CommonButton(
-                  title: "Camera",
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  borderColor: Theme.of(context).colorScheme.surface,
-                  prefixIcon: "assets/icon/icon_camera.png",
-                  prefixWidth: 20,
-                  prefixHeight: 20,
-                  fun: () => _getCameraImage(),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                CommonButton(
-                  title: "Library",
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                  borderColor: Theme.of(context).colorScheme.surface,
-                  prefixIcon: "assets/icon/icon_library.png",
-                  prefixWidth: 20,
-                  prefixHeight: 20,
-                  fun: () => _getPhotoLibraryImage(),
-                ),
-              ],
-            ),
+        return CommonTextWithCloseHeaderBottomSheet(
+          title: "Select profile from",
+          childWidget: Column(
+            children: [
+              CommonButton(
+                title: "Camera",
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                borderColor: Theme.of(context).colorScheme.surface,
+                prefixIcon: "assets/icon/icon_camera.png",
+                prefixWidth: 20,
+                prefixHeight: 20,
+                fun: () => _getCameraImage(),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              CommonButton(
+                title: "Library",
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                borderColor: Theme.of(context).colorScheme.surface,
+                prefixIcon: "assets/icon/icon_library.png",
+                prefixWidth: 20,
+                prefixHeight: 20,
+                fun: () => _getPhotoLibraryImage(),
+              ),
+            ],
           ),
         );
       },

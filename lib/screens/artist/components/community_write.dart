@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:starlight_clone/components/common_short_radius_button.dart';
+import 'package:starlight_clone/components/common_text_with_close_header_bottom_sheet.dart';
 import 'package:starlight_clone/models/community/share.dart';
 import 'package:starlight_clone/screens/artist/comment_screen.dart';
+import 'package:starlight_clone/screens/artist/components/report_dialog.dart';
 import 'package:starlight_clone/util/constant.dart';
 
 class CommunityWrite extends StatefulWidget {
@@ -257,48 +259,21 @@ class _CommunityWriteState extends State<CommunityWrite> {
     return showModalBottomSheet(
       context: context,
       builder: (context) {
-        return Container(
-          color: Theme.of(context).colorScheme.onBackground,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Save this post",
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: const Image(
-                        image: AssetImage("assets/icon/icon_cancel.png"),
-                        width: 14,
-                        height: 14,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.5),
-                    child: Text(
-                      "In my library",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
+        return CommonTextWithCloseHeaderBottomSheet(
+          title: "Save this post",
+          childWidget: Row(
+            children: [
+              GestureDetector(
+                onTap: () {},
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.5),
+                  child: Text(
+                    "In my library",
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },
@@ -310,65 +285,33 @@ class _CommunityWriteState extends State<CommunityWrite> {
     return showModalBottomSheet(
       context: context,
       builder: (context) {
-        return Container(
-          color: Theme.of(context).colorScheme.onBackground,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        return CommonTextWithCloseHeaderBottomSheet(
+          title: "Share this post",
+          childWidget: SizedBox(
+            height: screenWidth / 3,
+            child: ListView.separated(
+              itemBuilder: (context, index) {
+                return Column(
                   children: [
-                    Text(
-                      "Share this post",
-                      style: Theme.of(context).textTheme.headlineMedium,
+                    CircleAvatar(
+                      backgroundImage: AssetImage(shares[index].image),
+                      radius: screenWidth * 7 / 72,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: const Image(
-                        image: AssetImage("assets/icon/icon_cancel.png"),
-                        width: 14,
-                        height: 14,
-                      ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      shares[index].title,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                SizedBox(
-                  height: screenWidth / 3,
-                  child: ListView.separated(
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          CircleAvatar(
-                            backgroundImage: AssetImage(shares[index].image),
-                            radius: screenWidth * 7 / 72,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            shares[index].title,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ],
-                      );
-                    },
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(width: 15),
-                    itemCount: shares.length,
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                  ),
-                )
-              ],
+                );
+              },
+              separatorBuilder: (context, index) => const SizedBox(width: 15),
+              itemCount: shares.length,
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(vertical: 15),
             ),
           ),
         );
@@ -380,74 +323,48 @@ class _CommunityWriteState extends State<CommunityWrite> {
     return showModalBottomSheet(
       context: context,
       builder: (context) {
-        return Container(
-          color: Theme.of(context).colorScheme.onBackground,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Reporting this post for",
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: const Image(
-                        image: AssetImage("assets/icon/icon_cancel.png"),
-                        width: 14,
-                        height: 14,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    _reportEnd();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.5),
-                    child: Text(
-                      "Its a spam post",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
+        return CommonTextWithCloseHeaderBottomSheet(
+          title: "Reporting this post for",
+          childWidget: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  _reportEnd();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.5),
+                  child: Text(
+                    "Its a spam post",
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    _reportEnd();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.5),
-                    child: Text(
-                      "Naked image or sexual behavior.",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  _reportEnd();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.5),
+                  child: Text(
+                    "Naked image or sexual behavior.",
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    _reportEnd();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.5),
-                    child: Text(
-                      "hate speech or violent content.",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  _reportEnd();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.5),
+                  child: Text(
+                    "hate speech or violent content.",
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },
@@ -459,38 +376,7 @@ class _CommunityWriteState extends State<CommunityWrite> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.onBackground,
-          title: Text(
-            "Reported",
-            style: Theme.of(context).textTheme.headlineLarge,
-          ),
-          content: Text(
-            "The report for this post has been completed. I'll review it as soon as possible. Thank you.",
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: const Color(0xFFA4A29E),
-                ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Get.back();
-              },
-              child: Text(
-                "Close",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(color: Theme.of(context).colorScheme.primary),
-              ),
-            )
-          ],
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(15.0),
-            ),
-          ),
-        );
+        return const ReportDialog();
       },
     );
   }

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:starlight_clone/components/common_close_header_bottom_sheet.dart';
 import 'package:starlight_clone/components/common_poster.dart';
 import 'package:starlight_clone/components/common_radius_button.dart';
 import 'package:starlight_clone/components/common_short_radius_button.dart';
 import 'package:starlight_clone/models/home/group.dart';
 import 'package:starlight_clone/screens/main_screen.dart';
+import 'package:starlight_clone/screens/myfavorite/components/back_dialog.dart';
+import 'package:starlight_clone/screens/myfavorite/components/done_dialog.dart';
 import 'package:starlight_clone/screens/myfavorite/components/favorite_list.dart';
 
 class MyFavoriteScreen extends StatefulWidget {
@@ -41,49 +44,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
             showDialog(
               context: context,
               builder: (context) {
-                return AlertDialog(
-                  actionsPadding: const EdgeInsets.only(bottom: 20, right: 20),
-                  backgroundColor: Theme.of(context).colorScheme.onBackground,
-                  title: Text(
-                    "Dismiss all the selections?",
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                  content: Text(
-                    "If you leave now, all selections will be deleted.",
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: const Color(0xFFA4A29E),
-                        ),
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Get.back();
-                        Get.back();
-                      },
-                      child: Text(
-                        "Leave now",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(color: const Color(0xFFFD3A6A)),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      child: Text(
-                        "Cancel",
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                    )
-                  ],
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(15.0),
-                    ),
-                  ),
-                );
+                return const BackDialog();
               },
             );
           },
@@ -215,7 +176,7 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
                       height: 30,
                     ),
                     Text(
-                      "Finde your favorite artist",
+                      "Find your favorite artist",
                       style: Theme.of(context)
                           .textTheme
                           .titleLarge
@@ -469,87 +430,64 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
     return showModalBottomSheet(
       context: context,
       builder: (context) {
-        return Container(
-          color: Theme.of(context).colorScheme.onBackground,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: const Image(
-                        image: AssetImage("assets/icon/icon_cancel.png"),
-                        width: 14,
-                        height: 14,
-                      ),
-                    )
-                  ],
+        return CommonCloseHeaderBottomSheet(
+          paddingVertical: 20,
+          paddingHorizontal: 15,
+          childWidget: Column(
+            children: [
+              CommonPoster(
+                posterUrl: groups[idx].imgUrl,
+                length: screenWidth * 5 / 18,
+                radius: 15,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Text(
+                "Set as your favorite?",
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                "You can still set ${3 - _selectedIdol.length} more artists\nas your favorite.",
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.white.withOpacity(0.6),
+                    ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              CommonRadiusButton(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                borderColor: Colors.transparent,
+                buttonText: "Confirm",
+                buttonTextColor: Colors.black,
+                fun: () {
+                  setState(() {
+                    _selectedIdol.add(groups[idx].id);
+                  });
+                  Get.back();
+                },
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: Text(
+                  "Cancel",
+                  style: Theme.of(context).textTheme.displayMedium,
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                CommonPoster(
-                  posterUrl: groups[idx].imgUrl,
-                  length: screenWidth * 5 / 18,
-                  radius: 15,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  "Set as your favorite?",
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "You can still set ${3 - _selectedIdol.length} more artists\nas your favorite.",
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.white.withOpacity(0.6),
-                      ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                CommonRadiusButton(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  borderColor: Colors.transparent,
-                  buttonText: "Confirm",
-                  buttonTextColor: Colors.black,
-                  fun: () {
-                    setState(() {
-                      _selectedIdol.add(groups[idx].id);
-                    });
-                    Get.back();
-                  },
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Text(
-                    "Cancel",
-                    style: Theme.of(context).textTheme.displayMedium,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                )
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 10,
+              )
+            ],
           ),
         );
       },
@@ -561,210 +499,123 @@ class _MyFavoriteScreenState extends State<MyFavoriteScreen> {
     return showModalBottomSheet(
       context: context,
       builder: (context) {
-        return Container(
-          color: Theme.of(context).colorScheme.onBackground,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: const Image(
-                        image: AssetImage("assets/icon/icon_cancel.png"),
-                        width: 14,
-                        height: 14,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: screenWidth * 5 / 18,
-                      child: ListView.separated(
-                        physics: const NeverScrollableScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return CommonPoster(
-                            posterUrl: groups[_selectedIdol[index]].imgUrl,
-                            length: screenWidth * 5 / 18,
-                            radius: 15,
-                          );
-                        },
-                        separatorBuilder: (context, index) => const SizedBox(
-                          width: 8,
-                        ),
-                        itemCount: _selectedIdol.length,
-                      ),
-                    ),
-                    Visibility(
-                      visible: _selectedIdol.length != 3,
-                      child: Row(
-                        children: [
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          SizedBox(
-                            height: screenWidth / 6,
-                            child: ListView.separated(
-                              physics: const NeverScrollableScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  width: screenWidth / 6,
-                                  height: screenWidth / 6,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                );
-                              },
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(
-                                width: 8,
-                              ),
-                              itemCount: 3 - _selectedIdol.length,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  "Set as your favorite?",
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  _selectedIdol.length == 3
-                      ? "You used all the favorite slots.\nIf you confirm your decesion, you can get\n free stardust."
-                      : "You can still set ${3 - _selectedIdol.length} more artists\nas your favorite.",
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.white.withOpacity(0.6),
-                      ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                CommonRadiusButton(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  borderColor: Colors.transparent,
-                  buttonText: _selectedIdol.length == 3
-                      ? "Confirm and get 30 stardust"
-                      : "Finish and get 30 stardust",
-                  buttonTextColor: Colors.black,
-                  fun: () {
-                    Get.offAll(() => const MainScreen());
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          actionsPadding:
-                              const EdgeInsets.only(bottom: 20, right: 20),
-                          backgroundColor:
-                              Theme.of(context).colorScheme.onBackground,
-                          title: Row(
-                            children: [
-                              Container(
-                                width: screenWidth * 5 / 36,
-                                height: screenWidth * 5 / 36,
-                                padding: const EdgeInsets.all(15),
-                                decoration: BoxDecoration(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Image.asset(
-                                  "assets/icon/icon_stardust.png",
-                                  width: 20,
-                                  height: 20,
-                                  fit: BoxFit.contain,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "Stardust x100",
-                                style: Theme.of(context).textTheme.titleSmall,
-                              ),
-                            ],
-                          ),
-                          content: Text(
-                            "Register your favorite artist and get Stardust.",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  color: const Color(0xFFA4A29E),
-                                ),
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Get.back();
-                              },
-                              child: Text(
-                                "Close",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary),
-                              ),
-                            )
-                          ],
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(15.0),
-                            ),
-                          ),
+        return CommonCloseHeaderBottomSheet(
+          paddingVertical: 20,
+          paddingHorizontal: 15,
+          childWidget: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: screenWidth * 5 / 18,
+                    child: ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return CommonPoster(
+                          posterUrl: groups[_selectedIdol[index]].imgUrl,
+                          length: screenWidth * 5 / 18,
+                          radius: 15,
                         );
                       },
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Text(
-                    _selectedIdol.length == 3 ? "Not yet" : "Cancel",
-                    style: Theme.of(context).textTheme.displayMedium,
+                      separatorBuilder: (context, index) => const SizedBox(
+                        width: 8,
+                      ),
+                      itemCount: _selectedIdol.length,
+                    ),
                   ),
+                  Visibility(
+                    visible: _selectedIdol.length != 3,
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        SizedBox(
+                          height: screenWidth / 6,
+                          child: ListView.separated(
+                            physics: const NeverScrollableScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                width: screenWidth / 6,
+                                height: screenWidth / 6,
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
+                              width: 8,
+                            ),
+                            itemCount: 3 - _selectedIdol.length,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Text(
+                "Set as your favorite?",
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                _selectedIdol.length == 3
+                    ? "You used all the favorite slots.\nIf you confirm your decesion, you can get\n free stardust."
+                    : "You can still set ${3 - _selectedIdol.length} more artists\nas your favorite.",
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.white.withOpacity(0.6),
+                    ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              CommonRadiusButton(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                borderColor: Colors.transparent,
+                buttonText: _selectedIdol.length == 3
+                    ? "Confirm and get 30 stardust"
+                    : "Finish and get 30 stardust",
+                buttonTextColor: Colors.black,
+                fun: () {
+                  Get.offAll(() => const MainScreen());
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const DoneDialog();
+                    },
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: Text(
+                  _selectedIdol.length == 3 ? "Not yet" : "Cancel",
+                  style: Theme.of(context).textTheme.displayMedium,
                 ),
-                const SizedBox(
-                  height: 10,
-                )
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
           ),
         );
       },

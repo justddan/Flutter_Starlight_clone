@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:starlight_clone/components/common_button.dart';
-import 'package:starlight_clone/screens/login/component/google_sign_in_button.dart';
+import 'package:starlight_clone/screens/login/components/google_sign_in_button.dart';
 import 'package:starlight_clone/screens/login/terms_screen.dart';
 import 'package:starlight_clone/util/auth.dart';
 

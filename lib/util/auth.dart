@@ -46,6 +46,8 @@ class Auth {
             await auth.signInWithCredential(credential);
 
         user = userCredential.user;
+
+        print("UserCredential: ${userCredential.credential?.accessToken}");
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
           // handle the error here

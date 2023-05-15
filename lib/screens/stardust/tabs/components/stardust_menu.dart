@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:starlight_clone/components/common_short_radius_button.dart';
 import 'package:starlight_clone/screens/stardust/product_screen.dart';
 import 'package:starlight_clone/util/constant.dart';
@@ -17,7 +16,7 @@ class StardustMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    var f = NumberFormat('###,###');
+    // var f = NumberFormat('###,###');
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

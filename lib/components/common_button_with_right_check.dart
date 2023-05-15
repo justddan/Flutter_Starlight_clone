@@ -37,7 +37,7 @@ class CommonButtonWithRightCheck extends StatelessWidget {
       prefixHeight: prefixHeight,
       prefixIconColor: prefixIconColor,
       suffixIcon: "assets/icon/icon_right_check.png",
-      suffixWidth: screenWidth / 60,
+      suffixWidth: screenWidth / 30,
       suffixHeight: screenWidth / 30,
       suffixText: suffixText,
       fun: fun,

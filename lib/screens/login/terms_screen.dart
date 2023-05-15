@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:starlight_clone/components/common_button_with_right_check.dart';
 import 'package:starlight_clone/components/common_radius_button.dart';
+import 'package:starlight_clone/screens/login/components/terms_title.dart';
 import 'package:starlight_clone/screens/login/profile_screen.dart';
 
 class TermsScreen extends StatefulWidget {
@@ -37,32 +37,17 @@ class _TermsScreenState extends State<TermsScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Stack(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 40,
-                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Terms of conditions.",
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    CommonButtonWithRightCheck(
-                      title: "Check the details",
-                      backgroundColor: Theme.of(context).colorScheme.surface,
-                      borderColor: Colors.black,
-                      fun: () {},
-                    ),
-                    const SizedBox(
-                      height: 10,
+                    const TermsTitle(
+                      title: "Terms of conditions.",
                     ),
                     Row(
                       children: [
@@ -99,21 +84,8 @@ class _TermsScreenState extends State<TermsScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Policy of personal information.",
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    CommonButtonWithRightCheck(
-                      title: "Check the details",
-                      backgroundColor: Theme.of(context).colorScheme.surface,
-                      borderColor: Colors.black,
-                      fun: () {},
-                    ),
-                    const SizedBox(
-                      height: 10,
+                    const TermsTitle(
+                      title: "Policy of personal information.",
                     ),
                     Row(
                       children: [
@@ -148,16 +120,12 @@ class _TermsScreenState extends State<TermsScreen> {
             ),
             Visibility(
               visible: isTerms && isPolicy,
-              child: Positioned(
-                width: MediaQuery.of(context).size.width - 30,
-                bottom: 30,
-                child: CommonRadiusButton(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  borderColor: Theme.of(context).colorScheme.primary,
-                  buttonText: "Next",
-                  buttonTextColor: Colors.black,
-                  fun: () => Get.to(const ProfileScreen()),
-                ),
+              child: CommonRadiusButton(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                borderColor: Theme.of(context).colorScheme.primary,
+                buttonText: "Next",
+                buttonTextColor: Colors.black,
+                fun: () => Get.to(const ProfileScreen()),
               ),
             ),
           ],
